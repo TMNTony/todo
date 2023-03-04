@@ -7,6 +7,20 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
-    <h1>Hey</h1>
+    <h1>Tony's Todos</h1>
+    <form action="">
+        <label for="task">Task</label>
+        <input type="text" id="task">
+        <label for="description">Description</label>
+        <input type="text" id="description">
+        <label for="dueBy">Due Date</label>
+        <input type="date" id="dueBy">
+        <label for="priority">Priority Level</label>
+        <select name="priority" id="priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+    </form>
 </body>
 </html>
