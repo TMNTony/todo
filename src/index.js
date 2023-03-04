@@ -1,3 +1,5 @@
 import "./style.css";
 
-console.log("Hello World");
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Hello World");
+});
