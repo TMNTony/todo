@@ -12,10 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  function test() {
-    console.log("JS is properly linked!");
-  }
-
   function addTask() {
     const task = document.querySelector("#task").value;
     const description = document.querySelector("#description").value;
@@ -32,12 +28,12 @@ document.addEventListener("DOMContentLoaded", () => {
     table.innerHTML = "";
     for (let i = 0; i < myTasks.length; i++) {
       const row = `<tr>
-                            <td>${myTasks[i].task}</td>
-                            <td>${myTasks[i].description}</td>
-                            <td>${myTasks[i].due}</td>
-                            <td>${myTasks[i].priority}</td>
-                            <td><button type="button" onclick="removeTask(${i})">Remove Task</button></td> 
-                      </tr>`;
+                    <td>${myTasks[i].task}</td>
+                    <td>${myTasks[i].description}</td>
+                    <td>${myTasks[i].due}</td>
+                    <td>${myTasks[i].priority}</td>
+                    <td><button type="button" onclick="removeTask(${i})">Remove Task</button></td> 
+                    </tr>`;
       table.innerHTML += row;
     }
   }
@@ -48,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
     buildTable();
   }
 
-  test();
   buildTable();
   document.getElementById("btn").addEventListener("click", (e) => {
     e.preventDefault();
