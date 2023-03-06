@@ -56,21 +56,47 @@ function renderTable(table, tasks) {
                     <td>${tasks[i].task}</td>
                     <td>${tasks[i].description}</td>
                     <td>${tasks[i].priority}</td>
-                    <td><button onclick="editTask(${i})">Edit Task</button></td>
+                    <td><button onclick="openEditModal(${i})">Edit Task</button></td>
                     <td><button onclick="removeTask(${i})">Remove Task</button></td> 
                   </tr>`;
     table.innerHTML += row;
   }
 }
 
-function editTask(index) {
-  const row = document.querySelectorAll("tr")[index + 1];
-  const task = row.querySelectorAll("td")[0].textContent;
-  const description = row.querySelectorAll("td")[1].textContent;
-  const due = row.querySelectorAll("td")[2].textContent;
-  const priority = row.querySelectorAll("td")[3].textContent;
-  myTasks[index] = new taskItem(task, description, due, priority);
-  buildTable();
+function openEditModal(index) {
+  // Get the task to edit from the myTasks array
+  const taskToEdit = myTasks[index];
+
+  // Fill in the modal fields with the task details
+  document.querySelector("#editTask").value = taskToEdit.task;
+  document.querySelector("#editDescription").value = taskToEdit.description;
+  document.querySelector("#editDueBy").value = taskToEdit.due;
+  document.querySelector("#editPriority").value = taskToEdit.priority;
+
+  // Show the modal
+  const modal = document.querySelector("#editModal");
+  modal.classList.replace("modal", "modal-content");
+
+  // Add an event listener to the Save button in the modal
+  const saveButton = document.querySelector("#saveBtn");
+  saveButton.addEventListener("click", () => {
+    // Get the updated task details from the modal fields
+    const updatedTask = new taskItem(
+      document.querySelector("#editTask").value,
+      document.querySelector("#editDescription").value,
+      document.querySelector("#editDueBy").value,
+      document.querySelector("#editPriority").value,
+    );
+
+    // Update the myTasks array with the updated task
+    myTasks[index] = updatedTask;
+
+    // Hide the modal
+    modal.classList.remove("show");
+
+    // Rebuild the table with the updated task
+    buildTable();
+  });
 }
 
 function addTask() {
@@ -88,7 +114,8 @@ function removeTask(index) {
   myTasks.splice(index, 1);
   buildTable();
 }
-window.editTask = editTask;
+
+window.openEditModal = openEditModal;
 window.removeTask = removeTask;
 
 document.addEventListener("DOMContentLoaded", () => {

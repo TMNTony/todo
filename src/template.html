@@ -35,5 +35,27 @@
             <tbody id="later"></tbody>
         </table>
     </div>
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Edit Task</h2>
+          <form id="editForm">
+            <label for="editTask">Task:</label>
+            <input type="text" id="editTask" name="editTask"><br>
+            <label for="editDescription">Description:</label>
+            <input type="text" id="editDescription" name="editDescription"><br>
+            <label for="editDueBy">Due by:</label>
+            <input type="date" id="editDueBy" name="editDueBy"><br>
+            <label for="editPriority">Priority:</label>
+            <select id="editPriority" name="editPriority">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select><br>
+            <input type="submit" value="Save" id="saveBtn">
+          </form>
+        </div>
+      </div>
+      
 </body>
 </html>
