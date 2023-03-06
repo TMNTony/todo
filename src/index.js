@@ -84,25 +84,33 @@ document.addEventListener("DOMContentLoaded", () => {
       const modal = document.querySelector("#editModal");
       modal.classList.replace("modal", "modal-content");
 
-      // Add an event listener to the Save button in the modal
-      const saveButton = document.querySelector("#saveBtn");
-      saveButton.addEventListener("click", () => {
+      // Add an event listener to the form submit event
+      const editForm = document.querySelector("#editForm");
+      editForm.addEventListener("submit", (event) => {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+
         // Get the updated task details from the modal fields
-        const updatedTask = new taskItem(
-          document.querySelector("#editTask").value,
-          document.querySelector("#editDescription").value,
-          document.querySelector("#editDueBy").value,
-          document.querySelector("#editPriority").value,
-        );
+        const task = document.querySelector("#editTask").value;
+        const description = document.querySelector("#editDescription").value;
+        const due = document.querySelector("#editDueBy").value;
+        const priority = document.querySelector("#editPriority").value;
+        const updatedTask = new taskItem(task, description, due, priority);
 
         // Update the myTasks array with the updated task
         myTasks[index] = updatedTask;
 
         // Hide the modal
-        modal.classList.remove("show");
+        modal.classList.replace("modal-content", "modal");
 
         // Rebuild the table with the updated task
         buildTable();
+      });
+
+      // Add an event listener to the Close button in the modal
+      const closeBtn = document.querySelector(".close");
+      closeBtn.addEventListener("click", () => {
+        modal.classList.replace("modal-content", "modal");
       });
     }
 
