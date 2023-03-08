@@ -1,6 +1,7 @@
 import "./style.css";
 
 const myTasks = [];
+let taskToEdit;
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btn").addEventListener("click", (e) => {
@@ -63,11 +64,28 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>${tasks[i].task}</td>
                     <td>${tasks[i].description}</td>
                     <td>${tasks[i].priority}</td>
-                    <td><button onclick="openEditModal(${i})">Edit Task</button></td>
+                    <td><button onclick="openEditModal(${i}), show()" >Edit Task</button></td>
                     <td><button onclick="removeTask(${i})">Remove Task</button></td> 
                   </tr>`;
       }
       table.innerHTML = rows;
+    }
+
+    // Show the modal
+    function show() {
+      const modal = document.querySelector("#editModal");
+      modal.classList.replace("modal", "modal-content");
+
+      // Close modal
+      function close() {
+        modal.classList.replace("modal-content", "modal");
+      }
+
+      // Add an event listener to the close button in the modal
+      const closeButton = document.querySelector(".close");
+      closeButton.addEventListener("click", () => {
+        close();
+      });
     }
 
     function openEditModal(index) {
@@ -79,10 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector("#editDescription").value = taskToEdit.description;
       document.querySelector("#editDueBy").value = taskToEdit.due;
       document.querySelector("#editPriority").value = taskToEdit.priority;
-
-      // Show the modal
-      const modal = document.querySelector("#editModal");
-      modal.classList.replace("modal", "modal-content");
 
       // Add an event listener to the Save button in the modal
       const saveButton = document.querySelector("#saveBtn");
@@ -101,15 +115,10 @@ document.addEventListener("DOMContentLoaded", () => {
         myTasks[index] = updatedTask;
 
         // Hide the modal
-        modal.classList.replace("modal-content", "modal");
+        close();
 
         // Rebuild the table with the updated task
         buildTable();
-      });
-
-      const closeBtn = document.querySelector(".close");
-      closeBtn.addEventListener("click", () => {
-        modal.classList.replace("modal-content", "modal");
       });
     }
 
@@ -133,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.openEditModal = openEditModal;
     window.removeTask = removeTask;
     window.myTasks = myTasks;
+    window.show = show;
     addTask();
   });
 });
