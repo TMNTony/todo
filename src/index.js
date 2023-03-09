@@ -1,13 +1,12 @@
 import "./style.css";
 
 let myTasks = [];
-
-let taskId = 0;
+let nextTaskId = 1;
 
 function taskItem(task, description, due, priority) {
-  // Factory to create task objects
+  // Factory to create array of tasks
   return {
-    id: taskId++,
+    taskId: nextTaskId++,
     task,
     description,
     due,
@@ -23,7 +22,7 @@ function renderTable(table, tasks) {
                       <td>${tasks[i].task}</td>
                       <td>${tasks[i].description}</td>
                       <td>${tasks[i].priority}</td>
-                      <td><button onclick="openEditModal(${i}), show()" >Edit Task</button></td>
+                      <td><button onclick="openEditModal(${i}), showEdit()" >Edit Task</button></td>
                       <td><button onclick="removeTask(${i})">Remove Task</button></td> 
                     </tr>`;
   }
@@ -75,36 +74,46 @@ if (localStorage.getItem("myTasks")) {
 }
 
 // Show the modal
-function show() {
+function showEdit() {
   const modal = document.querySelector("#editModal");
   modal.classList.replace("modal", "modal-content");
-
-  // Close modal
-  function close() {
-    modal.classList.replace("modal-content", "modal");
-  }
-
-  // Add an event listener to the close button in the modal
-  const closeButton = document.querySelector(".close");
-  closeButton.addEventListener("click", () => {
-    close();
-  });
 }
+
 // Close modal
 function close() {
   const modal = document.querySelector("#editModal");
+  const inputForm = document.querySelector("#inputForm");
   modal.classList.replace("modal-content", "modal");
+  inputForm.classList.replace("modal-content", "modal");
+}
+// Add an event listeners to the close button in the modals
+const closeButton = document.querySelector("#closeInput");
+closeButton.addEventListener("click", () => {
+  close();
+});
+
+const closeEditModal = document.querySelector("#closeEdit");
+closeEditModal.addEventListener("click", () => {
+  close();
+});
+
+function openInput() {
+  const inputForm = document.querySelector("#inputForm");
+  inputForm.classList.replace("modal", "modal-content");
 }
 
 function openEditModal(index) {
-  // Find the task to edit from the myTasks array using the index
+  // Get the task to edit from the myTasks array
   const taskToEdit = myTasks[index];
 
+  // Create a copy of the task object
+  const editedTask = { ...taskToEdit };
+
   // Fill in the modal fields with the task details
-  document.querySelector("#editTask").value = taskToEdit.task;
-  document.querySelector("#editDescription").value = taskToEdit.description;
-  document.querySelector("#editDueBy").value = taskToEdit.due;
-  document.querySelector("#editPriority").value = taskToEdit.priority;
+  document.querySelector("#editTask").value = editedTask.task;
+  document.querySelector("#editDescription").value = editedTask.description;
+  document.querySelector("#editDueBy").value = editedTask.due;
+  document.querySelector("#editPriority").value = editedTask.priority;
 
   // Add an event listener to the Save button in the modal
   const saveButton = document.querySelector("#saveBtn");
@@ -116,13 +125,12 @@ function openEditModal(index) {
     const due = document.querySelector("#editDueBy").value;
     const priority = document.querySelector("#editPriority").value;
 
-    // Create a new task object with the updated details
-    const updatedTask = taskItem(task, description, due, priority);
-
-    // Replace the original task object in the myTasks array with the updated one
-    myTasks.splice(index, 1, updatedTask);
-
-    // Update the local storage with the modified myTasks array
+    // Update the task object in the myTasks array
+    editedTask.task = task;
+    editedTask.description = description;
+    editedTask.due = due;
+    editedTask.priority = priority;
+    myTasks.splice(index, 1, editedTask);
     localStorage.setItem("myTasks", JSON.stringify(myTasks));
 
     // Hide the modal
@@ -156,9 +164,12 @@ function removeTask(index) {
 document.getElementById("btn").addEventListener("click", (e) => {
   e.preventDefault();
   addTask();
+  close();
 });
 
 window.openEditModal = openEditModal;
 window.removeTask = removeTask;
 window.myTasks = myTasks;
-window.show = show;
+window.showEdit = showEdit;
+window.openInput = openInput;
+window.close = close;
