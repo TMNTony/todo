@@ -1,5 +1,40 @@
 body {
+    font-family: fantasy;
+}
+
+.header {
+   background-color: rgb(157, 157, 242);
+   padding: 20px;
+			position: relative;
+}
+
+.output {
+    display: flex;
+    justify-content: center;
+}
+table {
+    display: grid;
+    justify-items: center;
     
+}
+
+th {
+    padding-top: 30%;
+    font-weight: bolder;
+    font-size: larger;
+    font-family: fantasy;
+}
+
+.create {
+    padding: 10px 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: fantasy;
+    color: #aaa;
+    font-weight: bold;
+    text-align: right;
 }
 
 .modal {
@@ -15,18 +50,24 @@ body {
   }
   
   .modal-content {
-    background-color: #fefefe;
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-  }
+    display: grid;
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(214, 201, 201);
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+  border: 1px solid black;
+}
   
   .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
+    text-align: right;
   }
   
   .close:hover,
@@ -35,4 +76,23 @@ body {
     text-decoration: none;
     cursor: pointer;
   }
+
+  .create:hover,
+  .create:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
   
+  button {
+    color: #aaa;
+    font-family: fantasy;
+    font-weight: bold;
+  }
+
+  button:focus,
+  button:hover {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }

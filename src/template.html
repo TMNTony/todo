@@ -7,9 +7,12 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
-    <h1>Tony's Todos</h1>
-    <button onclick="openInput()">Create Task</button>
+    <div class="header">
+      <h1>Tony's Todos</h1>
+      <button onclick="openInput()" class="create">Create Task</button>
+    </div>
     <form action="" id="inputForm" class="modal">
+        <span id="closeInput" class="close">&times;</span>
         <label for="task">Task</label>
         <input type="text" id="task">
         <label for="description">Description</label>
@@ -22,7 +25,6 @@
             <option value="medium">Medium</option>
             <option value="high">High</option>
         </select>
-        <span id="closeInput" class="close">&times;</span>
         <button id="btn">Save New Task</button>
     </form>
     <div class="output">

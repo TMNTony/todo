@@ -159,7 +159,7 @@ function removeTask(index) {
   myTasks.splice(index, 1);
   localStorage.setItem("myTasks", JSON.stringify(myTasks));
   buildTable();
-  location.reload;
+  console.log(myTasks);
 }
 
 document.getElementById("btn").addEventListener("click", (e) => {

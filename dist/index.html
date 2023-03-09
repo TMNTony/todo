@@ -7,8 +7,12 @@
     <title>Todo List</title>
 <script defer src="runtime.bundle.js"></script><script defer src="main.bundle.js"></script></head>
 <body>
-    <h1>Tony's Todos</h1>
-    <form action="">
+    <div class="header">
+      <h1>Tony's Todos</h1>
+      <button onclick="openInput()">Create Task</button>
+    </div>
+    <form action="" id="inputForm" class="modal">
+        <span id="closeInput" class="close">&times;</span>
         <label for="task">Task</label>
         <input type="text" id="task">
         <label for="description">Description</label>
@@ -21,7 +25,7 @@
             <option value="medium">Medium</option>
             <option value="high">High</option>
         </select>
-        <button id="btn">Create New Task</button>
+        <button id="btn">Save New Task</button>
     </form>
     <div class="output">
         <table>
@@ -29,7 +33,7 @@
             <tbody id="overdue"></tbody>
             <th>Due In 24 Hours</th>
             <tbody id="today"></tbody>
-            <th>Due This Week</th>
+            <th>Next Few Days</th>
             <tbody id="tomorrow"></tbody>
             <th>Down The Road</th>
             <tbody id="later"></tbody>
@@ -37,7 +41,7 @@
     </div>
     <div id="editModal" class="modal">
         <div class="modal-content">
-          <span class="close">&times;</span>
+            <span class="close" id="closeEdit">&times;</span>
           <h2>Edit Task</h2>
           <form id="editForm">
             <label for="editTask">Task:</label>
