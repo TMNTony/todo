@@ -149,6 +149,7 @@ function removeTask(index) {
 
 document.getElementById("btn").addEventListener("click", (e) => {
   e.preventDefault();
+  addTask();
 });
 
 window.openEditModal = openEditModal;
