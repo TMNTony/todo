@@ -2,9 +2,12 @@ import "./style.css";
 
 let myTasks = [];
 
+let taskId = 0;
+
 function taskItem(task, description, due, priority) {
-  // Factory to create array of tasks
+  // Factory to create task objects
   return {
+    id: taskId++,
     task,
     description,
     due,
@@ -94,7 +97,7 @@ function close() {
 }
 
 function openEditModal(index) {
-  // Get the task to edit from the myTasks array
+  // Find the task to edit from the myTasks array using the index
   const taskToEdit = myTasks[index];
 
   // Fill in the modal fields with the task details
@@ -113,11 +116,13 @@ function openEditModal(index) {
     const due = document.querySelector("#editDueBy").value;
     const priority = document.querySelector("#editPriority").value;
 
-    // Update the task object in the myTasks array
-    const updatedTask = {
-      ...taskToEdit, task, description, due, priority,
-    };
+    // Create a new task object with the updated details
+    const updatedTask = taskItem(task, description, due, priority);
+
+    // Replace the original task object in the myTasks array with the updated one
     myTasks.splice(index, 1, updatedTask);
+
+    // Update the local storage with the modified myTasks array
     localStorage.setItem("myTasks", JSON.stringify(myTasks));
 
     // Hide the modal
@@ -125,6 +130,7 @@ function openEditModal(index) {
 
     // Rebuild the table with the updated task
     buildTable();
+    location.reload();
   });
 }
 
